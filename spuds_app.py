@@ -5,9 +5,9 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from datetime import datetime
 
-# CRUD Spuds - DS3850 Group Final
-# Team: Wyatt Graves, Andrew Tyler, Braden Clark, Jackson Donald, Andrew Taylor
-# Domain: Potato restaurant menu + orders
+#CRUD Spuds - DS3850 Group Final
+#Team: Wyatt Graves, Andrew Tyler, Braden Clark, Jackson Donald, Andrew Taylor
+#Domain: Potato restaurant menu and orders
 
 DB_NAME = "crud_spuds.db"
 
@@ -96,9 +96,9 @@ class SpudsApp:
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
-    # ------------------------------------------------------------------ TAB 1
-    # Wyatt Graves + Andrew Tyler - menu CRUD
-    def build_menu_tab(self):
+#TAB 1
+#Wyatt Graves + Andrew Tyler - menu CRUD
+    def make_menu_tab(self):
         # ---- input form ----
         form = ttk.LabelFrame(self.tab1, text="Add / Edit Spud")
         form.pack(fill="x", padx=10, pady=8)
@@ -122,7 +122,7 @@ class SpudsApp:
         ttk.Label(self.tab1, text="Tip: click a row below to load it into the form for editing",
                   foreground="gray").pack(anchor="w", padx=12)
 
-        # ---- search / filter ----
+#search/filter
         filt = ttk.Frame(self.tab1)
         filt.pack(fill="x", padx=10)
         ttk.Label(filt, text="Filter by category:").pack(side="left")
@@ -132,7 +132,7 @@ class SpudsApp:
         filter_box.pack(side="left", padx=5)
         ttk.Button(filt, text="Apply", command=self.refresh_spuds).pack(side="left")
 
-        # ---- treeview ----
+    #treeview
         cols = ("ID", "Name", "Category", "Price", "Active")
         self.tree_spuds = ttk.Treeview(self.tab1, columns=cols, show="headings", height=16)
         for c in cols:
@@ -141,7 +141,7 @@ class SpudsApp:
         self.tree_spuds.pack(fill="both", expand=True, padx=10, pady=5)
         self.tree_spuds.bind("<<TreeviewSelect>>", self.load_spud_into_form)
 
-        # ---- bottom buttons ----
+#lower buttons
         btns = ttk.Frame(self.tab1)
         btns.pack(pady=4)
         ttk.Button(btns, text="Delete Selected",        command=self.delete_spud).pack(side="left", padx=6)
@@ -149,18 +149,18 @@ class SpudsApp:
 
         self.refresh_spuds()
 
-    def add_spud(self):
+    def plus_spud(self):
         name  = self.ent_name.get().strip()
         cat   = self.ent_cat.get().strip()
         price = self.ent_price.get().strip()
 
         if not name:
-            messagebox.showerror("Oops", "Name can't be empty")
+            messagebox.showerror("Error", "Name can't be empty")
             return
         try:
             price = float(price)
         except ValueError:
-            messagebox.showerror("Oops", "Price needs to be a number")
+            messagebox.showerror("Error", "Price needs to be a number")
             return
 
         self.conn.execute("INSERT INTO spuds (name, category, price) VALUES (?, ?, ?)",
@@ -186,7 +186,7 @@ class SpudsApp:
         self.conn.commit()
         self.refresh_spuds()
 
-    def delete_spud(self):
+    def del_spud(self):
         sel = self.tree_spuds.selection()
         if not sel:
             return
@@ -237,8 +237,8 @@ class SpudsApp:
         for r in rows:
             self.tree_spuds.insert("", "end", values=r)
 
-    # ------------------------------------------------------------------ TAB 2
-    # Braden Clark - order entry + view
+    #TAB 2
+    #Braden Clark - order entry and view
     def build_orders_tab(self):
         form = ttk.LabelFrame(self.tab2, text="Place an Order")
         form.pack(fill="x", padx=10, pady=8)
@@ -255,7 +255,7 @@ class SpudsApp:
 
         ttk.Button(form, text="Place Order", command=self.place_order).grid(row=0, column=4, padx=10)
 
-        # order history treeview
+#order history
         ttk.Label(self.tab2, text="Order History:").pack(anchor="w", padx=10)
         ocols = ("Order ID", "Spud", "Date", "Qty", "Total")
         self.tree_orders = ttk.Treeview(self.tab2, columns=ocols, show="headings", height=18)
@@ -309,8 +309,8 @@ class SpudsApp:
         for r in self.conn.execute(q).fetchall():
             self.tree_orders.insert("", "end", values=r)
 
-    # ------------------------------------------------------------------ TAB 3
-    # Jackson Donald + Andrew Taylor - pandas report
+#TAB 3
+#Jackson Donald + Andrew Taylor  pandas report
     def build_reports_tab(self):
         top = ttk.Frame(self.tab3)
         top.pack(fill="x", padx=10, pady=8)
@@ -331,14 +331,14 @@ class SpudsApp:
             self.report_box.insert("1.0", "No orders yet - place some orders first!")
             return
 
-        # groupby summary
+#summary
         by_cat = df.groupby("category")["total"].sum().reset_index()
         by_cat.columns = ["Category", "Total Revenue"]
 
         count_by_cat = df.groupby("category")["quantity"].sum().reset_index()
         count_by_cat.columns = ["Category", "Items Sold"]
 
-        # numpy stats
+#numpy
         avg_order = np.mean(df["total"].values)
         std_order = np.std(df["total"].values)
         max_order = np.max(df["total"].values)
@@ -371,7 +371,7 @@ class SpudsApp:
 
     def export_csv(self):
         if not hasattr(self, 'report_df') or self.report_df is None:
-            messagebox.showwarning("No data", "Run the report first")
+            messagebox.showwarning("No data", "Run the repot first")
             return
         path = filedialog.asksaveasfilename(defaultextension=".csv",
                                             filetypes=[("CSV files", "*.csv")])
