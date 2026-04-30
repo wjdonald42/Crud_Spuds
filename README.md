@@ -1,2 +1,24 @@
-#Crud_Spuds
-#The CRUD SPUDS project was made by Wyatt Graves, Andrew Tyler, Andrew Taylor, Jackson Donald, and Braden Clark. Our group built a small potato‑themed menu and sales system, and the idea was easy enough for us to turn into a working CRUD app. To run it, you just need Python, then open the folder and start the spuds_app.py file. The program sets up the database on its own and loads the sample potatoes and sales the first time it runs. After the window opens, you can switch tabs to add or edit spuds or look at the saved orders. Everything is stored in the crud_spuds.db file so the data stays there even after closing the app.
+CRUD Spuds - DS3850 Group Final
+Team: Wyatt Graves, Andrew Tyler, Braden Clark, Jackson Donald, Andrew Taylor
+Domain: Potato restaurant menu and orders
+
+Description:
+CRUD Spuds is a Python desktop app for managing a potato restaurant menu and orders.
+It uses Tkinter for the interface, SQLite for data storage, and Pandas/NumPy for reports.
+
+Requirements:
+- Python 3.9 or later
+- Packages: pandas, numpy
+  (install with: pip install pandas numpy)
+
+How to Run:
+1. Save all files in the same folder.
+2. Open a terminal in that folder.
+3. Run:  python crud_spuds.py
+4. The app will open a window with three tabs:
+   - Menu Items: add, edit, or delete spuds
+   - Orders: place and view orders
+   - Reports: view summary and export to CSV
+
+Notes:
+The database (crud_spuds.db) is created automatically when the program starts.
