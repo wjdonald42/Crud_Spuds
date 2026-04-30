@@ -1,1 +1,2 @@
-# Crud_Spuds
+#Crud_Spuds
+#The CRUD SPUDS project was made by Wyatt Graves, Andrew Tyler, Andrew Taylor, Jackson Donald, and Braden Clark. Our group built a small potato‑themed menu and sales system, and the idea was easy enough for us to turn into a working CRUD app. To run it, you just need Python, then open the folder and start the spuds_app.py file. The program sets up the database on its own and loads the sample potatoes and sales the first time it runs. After the window opens, you can switch tabs to add or edit spuds or look at the saved orders. Everything is stored in the crud_spuds.db file so the data stays there even after closing the app.
