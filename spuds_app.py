@@ -98,7 +98,7 @@ class SpudsApp:
 
 #TAB 1
 #Wyatt Graves + Andrew Tyler - menu CRUD
-    def make_menu_tab(self):
+    def build_menu_tab(self):
         # ---- input form ----
         form = ttk.LabelFrame(self.tab1, text="Add / Edit Spud")
         form.pack(fill="x", padx=10, pady=8)
@@ -149,7 +149,7 @@ class SpudsApp:
 
         self.refresh_spuds()
 
-    def plus_spud(self):
+    def add_spud(self):
         name  = self.ent_name.get().strip()
         cat   = self.ent_cat.get().strip()
         price = self.ent_price.get().strip()
@@ -186,7 +186,7 @@ class SpudsApp:
         self.conn.commit()
         self.refresh_spuds()
 
-    def del_spud(self):
+    def delete_spud(self):
         sel = self.tree_spuds.selection()
         if not sel:
             return
